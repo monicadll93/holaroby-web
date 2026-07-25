@@ -1,0 +1,9 @@
+{
+  // Sitio estático de Roby — no hay código de Worker, solo archivos.
+  // Cloudflare sirve directamente lo que esté en ./public
+  "name": "holaroby-web",
+  "compatibility_date": "2026-07-25",
+  "assets": {
+    "directory": "./public"
+  }
+}
