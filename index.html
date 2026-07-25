@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roby — Aún no me conoces</title>
+<meta name="description" content="Roby. Aún no me conoces. Muy pronto.">
+
+<!-- Open Graph: cómo se ve al compartir el link en WhatsApp, Slack, etc. -->
+<meta property="og:title" content="Roby">
+<meta property="og:description" content="Aún no me conoces.">
+<meta property="og:url" content="https://holaroby.com">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#7B4FE0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --purple:#7B4FE0;
+    --lime:#D6F84C;
+    --bg:#7B4FE0;
+    --text:#FFFFFF;
+    --muted:rgba(255,255,255,.72);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  html,body{height:100%}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Outfit',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px 24px;
+    overflow:hidden;
+    position:relative;
+  }
+
+  /* resplandor claro para dar profundidad al lila */
+  body::before{
+    content:'';
+    position:absolute;
+    top:50%;left:50%;
+    width:min(150vw,1200px);
+    height:min(150vw,1200px);
+    transform:translate(-50%,-55%);
+    background:radial-gradient(circle,rgba(255,255,255,.16) 0%,rgba(255,255,255,.05) 40%,transparent 66%);
+    pointer-events:none;
+  }
+
+  .wrap{
+    position:relative;
+    text-align:center;
+    max-width:620px;
+    width:100%;
+    animation:rise .9s cubic-bezier(.2,.7,.3,1) both;
+  }
+
+  @keyframes rise{
+    from{opacity:0;transform:translateY(14px)}
+    to{opacity:1;transform:none}
+  }
+
+  .logo{
+    font-size:clamp(64px,17vw,150px);
+    font-weight:700;
+    letter-spacing:-.045em;
+    line-height:.9;
+    margin-bottom:22px;
+  }
+  .logo .dot{color:var(--lime)}
+
+  .tagline{
+    font-size:clamp(21px,4.4vw,32px);
+    font-weight:300;
+    letter-spacing:-.015em;
+    color:var(--text);
+    margin-bottom:38px;
+  }
+
+  .soon{
+    display:inline-block;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:.34em;
+    text-transform:uppercase;
+    color:var(--lime);
+    border:1px solid rgba(214,248,76,.55);
+    border-radius:999px;
+    padding:9px 20px 9px 24px;
+    margin-bottom:56px;
+  }
+
+  form{
+    display:flex;
+    gap:10px;
+    max-width:430px;
+    margin:0 auto;
+    flex-wrap:wrap;
+  }
+
+  input[type=email]{
+    flex:1 1 220px;
+    min-width:0;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.30);
+    border-radius:999px;
+    padding:15px 22px;
+    color:var(--text);
+    font-family:inherit;
+    font-size:15.5px;
+    outline:none;
+    transition:border-color .18s, background .18s;
+  }
+  input[type=email]::placeholder{color:rgba(255,255,255,.58)}
+  input[type=email]:focus{
+    border-color:var(--lime);
+    background:rgba(255,255,255,.18);
+  }
+
+  button{
+    flex:0 0 auto;
+    background:var(--lime);
+    color:#16130A;
+    border:0;
+    border-radius:999px;
+    padding:15px 28px;
+    font-family:inherit;
+    font-size:15.5px;
+    font-weight:600;
+    cursor:pointer;
+    transition:transform .16s, opacity .16s;
+  }
+  button:hover{transform:translateY(-1px)}
+  button:active{transform:translateY(0)}
+  button:disabled{opacity:.55;cursor:default;transform:none}
+
+  .hint{
+    margin-top:16px;
+    font-size:13.5px;
+    color:var(--muted);
+    min-height:20px;
+  }
+
+  .done{color:var(--lime)}
+
+  footer{
+    position:absolute;
+    bottom:26px;
+    left:0;right:0;
+    text-align:center;
+    font-size:12.5px;
+    color:rgba(255,255,255,.55);
+  }
+  footer a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.30)}
+  footer a:hover{color:var(--lime);border-color:var(--lime)}
+
+  @media (max-height:560px){
+    .soon{margin-bottom:32px}
+    footer{display:none}
+  }
+</style>
+</head>
+<body>
+
+  <main class="wrap">
+    <h1 class="logo">Roby<span class="dot">.</span></h1>
+    <p class="tagline">Aún no me conoces.</p>
+    <div class="soon">coming soon</div>
+
+    <form id="f" novalidate>
+      <input type="email" id="email" placeholder="tu@correo.com" autocomplete="email" required aria-label="Tu correo">
+      <button type="submit" id="btn">Avísame</button>
+    </form>
+    <p class="hint" id="hint" role="status" aria-live="polite"></p>
+  </main>
+
+  <footer>
+    <a href="mailto:hola@holaroby.com">hola@holaroby.com</a>
+  </footer>
+
+<script>
+  // ── Dónde se guardan los correos ──────────────────────────────
+  // Pega aquí la URL del servicio de formularios (ej. Formspree)
+  // o de tu propia Cloudflare Pages Function.
+  // Si lo dejas vacío, la página solo muestra el mensaje de gracias
+  // sin guardar nada — útil para publicar hoy y conectarlo después.
+  const FORM_ENDPOINT = "";
+
+  const f = document.getElementById('f');
+  const email = document.getElementById('email');
+  const btn = document.getElementById('btn');
+  const hint = document.getElementById('hint');
+
+  f.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const val = email.value.trim();
+
+    if (!val || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val)) {
+      hint.className = 'hint';
+      hint.textContent = 'Escribe un correo válido.';
+      email.focus();
+      return;
+    }
+
+    btn.disabled = true;
+    hint.className = 'hint';
+    hint.textContent = '';
+
+    if (FORM_ENDPOINT) {
+      try {
+        const r = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ email: val })
+        });
+        if (!r.ok) throw new Error('bad response');
+      } catch (err) {
+        btn.disabled = false;
+        hint.textContent = 'Algo falló. Escríbeme a hola@holaroby.com';
+        return;
+      }
+    }
+
+    f.style.display = 'none';
+    hint.className = 'hint done';
+    hint.textContent = 'Listo. Te aviso en cuanto llegue.';
+  });
+</script>
+
+</body>
+</html>
