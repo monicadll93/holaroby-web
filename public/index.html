@@ -35,6 +35,9 @@
     --line:        #E9E4F3;
 
     --danger:      #C4453D;
+    --danger-bg:   #FDF0EF;
+    --warn:        #C9860E;
+    --warn-bg:     #FFF7E9;
 
     --radius-sm: 8px;
     --radius:    12px;
@@ -223,6 +226,67 @@
   @media (min-width:640px){
     .msg{max-width:72%}
     .burbuja{font-size:15.5px}
+  }
+
+  /* ================= ESTO LO VES APENAS ENTRAS ================= */
+  .mockups{
+    background:var(--bg);
+    padding:8px 0 88px;
+  }
+  .mockups-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+  @media (min-width:860px){
+    .mockups-grid{grid-template-columns:repeat(3, 1fr)}
+  }
+  .mockup-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px;
+  }
+  .mockup-card-titulo{
+    font-size:13px;font-weight:700;color:var(--ink);
+    margin-bottom:18px;
+  }
+
+  /* -- tarjeta: Resumen del día -- */
+  .resumen-stats{display:flex;flex-direction:column;gap:16px}
+  .resumen-stat-label{
+    font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:4px;
+  }
+  .resumen-stat-valor{font-size:20px;font-weight:700;color:var(--ink)}
+  .resumen-stat-sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+  /* -- tarjeta: Alertas -- */
+  .alertas-lista{display:flex;flex-direction:column;gap:10px}
+  .alerta-item{
+    display:flex;gap:9px;align-items:flex-start;
+    font-size:13px;line-height:1.45;
+    padding:10px 12px;border-radius:var(--radius-sm);
+  }
+  .alerta-item strong{font-weight:700}
+  .alerta-icono{flex-shrink:0;line-height:1.45}
+  .alerta-danger{background:var(--danger-bg);color:var(--danger)}
+  .alerta-warn{background:var(--warn-bg);color:var(--warn)}
+  .alerta-neutro{background:var(--purple-lt);color:var(--purple-dk)}
+
+  /* -- tarjeta: Gastos por categoría -- */
+  .gastos-barras{display:flex;flex-direction:column;gap:14px}
+  .gastos-fila{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:10px}
+  .gastos-nombre{font-size:12.5px;color:var(--body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .gastos-riel{background:var(--bg);border-radius:6px;height:16px;display:block}
+  .gastos-barra{display:block;height:100%;border-radius:6px}
+  .gastos-monto{font-size:12.5px;font-weight:700;color:var(--ink);white-space:nowrap}
+
+  .mockups-nota{
+    margin-top:28px;
+    font-size:13.5px;
+    color:var(--muted);
+    text-align:center;
   }
 
   /* ================= CON QUÉ ME CONECTO ================= */
@@ -446,6 +510,77 @@
         <div class="burbuja">Listo. Te aviso el viernes a las 9.</div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="mockups" id="que-veo">
+  <div class="wrap">
+    <div class="fade">
+      <div class="seccion-eyebrow">Sin que preguntes</div>
+      <h2 class="seccion-titulo">Esto lo ves apenas entras</h2>
+    </div>
+
+    <div class="mockups-grid fade">
+      <div class="mockup-card">
+        <div class="mockup-card-titulo">Resumen del día</div>
+        <div class="resumen-stats">
+          <div>
+            <div class="resumen-stat-label">Caja disponible</div>
+            <div class="resumen-stat-valor">$152,341</div>
+          </div>
+          <div>
+            <div class="resumen-stat-label">Próxima nómina</div>
+            <div class="resumen-stat-valor">2 días</div>
+            <div class="resumen-stat-sub">$42,000</div>
+          </div>
+          <div>
+            <div class="resumen-stat-label">Aprobaciones nuevas</div>
+            <div class="resumen-stat-valor">13</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mockup-card">
+        <div class="mockup-card-titulo">Alertas</div>
+        <div class="alertas-lista">
+          <div class="alerta-item alerta-danger">
+            <span class="alerta-icono">⚠</span>
+            <span>Grupo Lerma lleva 42 días sin pagarte <strong>$28,600</strong></span>
+          </div>
+          <div class="alerta-item alerta-warn">
+            <span class="alerta-icono">⚠</span>
+            <span>58% de tus gastos de agosto están sin categorizar</span>
+          </div>
+          <div class="alerta-item alerta-neutro">
+            <span class="alerta-icono">🔔</span>
+            <span>13 aprobaciones nuevas esperando tu revisión</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mockup-card">
+        <div class="mockup-card-titulo">Gastos por categoría</div>
+        <div class="gastos-barras">
+          <div class="gastos-fila">
+            <span class="gastos-nombre">Nómina</span>
+            <span class="gastos-riel"><span class="gastos-barra" style="width:100%;background:var(--purple)"></span></span>
+            <span class="gastos-monto">$227,908</span>
+          </div>
+          <div class="gastos-fila">
+            <span class="gastos-nombre">Software</span>
+            <span class="gastos-riel"><span class="gastos-barra" style="width:18%;background:#4A9FE8"></span></span>
+            <span class="gastos-monto">$41,200</span>
+          </div>
+          <div class="gastos-fila">
+            <span class="gastos-nombre">Renta</span>
+            <span class="gastos-riel"><span class="gastos-barra" style="width:12%;background:#2BB8A6"></span></span>
+            <span class="gastos-monto">$28,400</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="mockups-nota fade">Y sigo aprendiendo de tu negocio cada día — esto no es todo lo que veo.</p>
   </div>
 </section>
 
